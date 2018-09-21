@@ -9,7 +9,6 @@ image classifier是一个经过图像识别训练的机器学习模型.当提供
 
 ## 准备数据
 要训练和评估分类模型,你首先应当准备好将要用到的数据.从大约80%的你已经打过标签的图像中创建一个训练数据集.从剩余的图像中创建测试数据集.一定要确保提供的图像只能出现在上述其中一个集合.
-<div align="center"><img src="./03.jpg" alt="图片01"></div>
 
 接下来,组织你的数据以兼容`MLImageClassifier.DataSource`类型中的一种.一种实现的方法是创建一个文件夹,命名为`Training Data`,再创建一个文件夹,命名为`Testing Data`.每一个文件夹里,创建子文件夹,并以图片的标签命名.然后将图像分别放入每个数据集相应的子文件夹.
-<div align="center"><img src="./04.jpg" alt="图片01"></div>
+<div align="center"><img src="./03.jpg" alt="图片01"></div>
