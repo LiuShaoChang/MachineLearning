@@ -26,3 +26,22 @@ image classifier是一个经过图像识别训练的机器学习模型.当提供
 ## 在Playground中展示一个图片分类模型创建者
 随着你的数据准备就绪,以一个macOS target创建一个新的Xcode playground.用该playground创建一个` MLImageClassifierBuilder`实例并在live view中展示.
 
+```
+// Import CreateMLUI to train the image classifier in the UI.
+// For other Create ML tasks, import CreateML instead.
+import CreateMLUI 
+
+let builder = MLImageClassifierBuilder()
+builder.showInLiveView()
+```
+
+在Xcode中打开助手编辑器,然后运行playground.然后live view就会呈现出一个`image classifier`(图片分类模型)
+<div align="center"><img src="./04.jpg" alt="图片01"></div>
+
+## 训练图片分类模型
+将你的训练数据文件夹拖入到live view的指定位置.当你这样做时,训练进程就开始了,并且该模型会展示训练进度.
+<div align="center"><img src="./05.jpg" alt="图片01"></div>
+
+
+
+
