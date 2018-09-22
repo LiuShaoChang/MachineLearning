@@ -31,3 +31,37 @@ import CreateML
 
 let data = try MLDataTable(contentsOf: URL(fileURLWithPath: "<#/path/to/read/data.json#>"))
 ```
+生成的数据表有两列, 命名为文本和标签, 它们从 JSON 文件中的键派生而来。列名可以是任何内容, 只要它们对您有意义, 因为你将在其他方法中使用它们作为参数。
+
+## 准备用于训练和评估的数据
+训练模型的数据应当不同于你用来评估的数据.用`MLDataTable`的`randomSplit(by:seed:)`方法将你的数据区分成两个表,一个用于训练,另一个用于测试.用于训练的数据应当占总数据的绝大部分,用于测试的数据占剩余的10%到20%.
+```
+let (trainingData, testingData) = data.randomSplit(by: 0.8, seed: 5)
+```
+
+## 创建和训练文本分类模型
+根据你的训练数据以及对列的命名创建一个`MLTextClassifier`实例,训练马上就开始了.
+```
+let sentimentClassifier = try MLTextClassifier(trainingData: trainingData,
+                                               textColumn: "text",
+                                               labelColumn: "label")
+```
+在训练过程中,`Create ML`将少量数据用于验证模型在训练过程中的进展.验证数据允许训练过程以未被训练过的模型样本评估模型的表现.根据验证精确度，如果精度足够高，则训练算法可以调整模型中的值甚至停止训练过程。因为这种数据拆分是随机进行的,所以每次训练模型时可能得到不同的结果.<br>
+要看模型在训练和验证数据上表现的准确性,需要用模型的`trainingMetrics`和`validationMetrics`属性的`classificationError`属性.
+```
+// Training accuracy as a percentage
+let trainingAccuracy = (1.0 - sentimentClassifier.trainingMetrics.classificationError) * 100
+
+// Validation accuracy as a percentage
+let validationAccuracy = (1.0 - sentimentClassifier.validationMetrics.classificationError) * 100
+```
+
+
+
+
+
+
+
+
+
+
