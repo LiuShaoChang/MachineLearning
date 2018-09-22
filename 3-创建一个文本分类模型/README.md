@@ -56,7 +56,38 @@ let trainingAccuracy = (1.0 - sentimentClassifier.trainingMetrics.classification
 let validationAccuracy = (1.0 - sentimentClassifier.validationMetrics.classificationError) * 100
 ```
 
+## 评估模型的精确度
+接下来,用一些模型没有见过的句子来测试模型,以评估模型的表现.将你的测试数据表传给`evaluation(on:)`方法,它会反给你一个`MLClassifierMetrics`实例.
+```
+let evaluationMetrics = sentimentClassifier.evaluation(on: testingData)
+```
+通过`MLClassifierMetrics`实例的`classificationError`属性来获取评估的准确性.
+```
+// Evaluation accuracy as a percentage
+let evaluationAccuracy = (1.0 - evaluationMetrics.classificationError) * 100
+```
+如果评估表现不是很好,你也许需要用更多的数据再次训练,或者做些其他的调整.有关如何提高模型的表现,参阅[Improving Your Model’s Accuracy]().
 
+## 保存Core ML模型
+当你的模型表现足够好时,你就可以将其应用到你的app了.用`write(to:metadata:)`方法将Core ML模型文件(`SentimentClassiifer.mlmodel`)写进硬盘.在`MLModelMetadata`实例中给模型填写一些信息,例如作者,版本或者描述.
+```
+let metadata = MLModelMetadata(author: "John Appleseed",
+                               shortDescription: "A model trained to classify movie review sentiment",
+                               version: "1.0")
+
+try sentimentClassifier.write(to: URL(fileURLWithPath: "<#/path/to/save/SentimentClassifier.mlmodel#>"),
+                              metadata: metadata)
+```
+
+## 将模型添加到你的app
+用Xcode打开你的app,将`SentimentClassifier.mlmodel`拖进项目中,Xcode会编译该模型,并生成一个`SentimentClassifier`供你使用.选中`SentimentClassifier.mlmodel`文件可以查看有关模型的更多信息<br>
+根据`SentimentClassifier`用自然语言库创建一个`NLModel`,以确保训练和应用的标记的一致性.然后,用`predictedLabel(for:)`方法对新输入的文本做预测.
+```
+import NaturalLanguage
+
+let sentimentPredictor = try NLModel(mlModel: SentimentClassifier().model)
+sentimentPredictor.predictedLabel(for: "It was the best I've ever seen!")
+```
 
 
 
