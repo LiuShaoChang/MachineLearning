@@ -5,3 +5,4 @@
 2. [创建一个图片分类模型](https://github.com/LiuShaoChang/MachineLearning/blob/master/2-创建一个图片分类模型/README.md)
 3. [创建一个文本分类模型](https://github.com/LiuShaoChang/MachineLearning/blob/master/3-创建一个文本分类模型/README.md)
 4. [列表数据](https://github.com/LiuShaoChang/MachineLearning/blob/master/4-列表数据/README.md)
+5. [提升模型的准确性](https://github.com/LiuShaoChang/MachineLearning/blob/master/5-提高模型的准确性/README.md)
